@@ -81,7 +81,7 @@ async function refresh(){
    .filter(({t})=>t.start_date>=today).sort((a,b)=>a.t.start_date.localeCompare(b.t.start_date)||a.o.id-b.o.id).slice(0,4);
   const key=JSON.stringify(trips);
   if(key!==lastData){track.replaceChildren(...trips.map(card));lastData=key;}
-  notice.textContent=trips.length?'Podgląd ofert z 6.11.2026. Aktualne ceny i dostępność sprawdzisz w aplikacji.':'W tej chwili nie ma zaplanowanych terminów.';
+  notice.textContent=trips.length?'':'W tej chwili nie ma zaplanowanych terminów.';
  }catch{lastData='';track.replaceChildren();notice.textContent='Nie udało się pobrać terminów. Otwórz katalog aplikacji.';}
  finally{pending=false;controls();}
 }
