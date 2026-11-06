@@ -138,6 +138,11 @@
 .trip-controls button:disabled {opacity:.5;cursor:default}
 .trip-track {display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .trip-track::-webkit-scrollbar {display:none}
+@media(hover:hover) and (pointer:fine){.trip-track,.trip-track a{cursor:grab}}
+.trip-track{user-select:none;-webkit-user-select:none}
+.trip-track.is-dragging{scroll-snap-type:none;scroll-behavior:auto}
+.trip-track.is-dragging,.trip-track.is-dragging a{cursor:grabbing}
+.trip-photo{-webkit-user-drag:none}
 .trip-card {flex:0 0 clamp(290px,30vw,540px);min-width:0;overflow:hidden;scroll-snap-align:start;text-decoration:none;background:linear-gradient(125deg,rgba(243,252,255,.46),rgba(224,244,246,.28));border-radius:14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:inherit}
 .board-view img.trip-photo {display:block;width:100%;height:clamp(150px,22svh,300px);object-fit:cover;object-position:center}
 .trip-body {padding:12px 16px;text-shadow:none}
@@ -386,4 +391,4 @@ a.bloom-dark{--bloom-fill:#fff;--bloom-ink:#103742}
 <details><summary>Jak zarezerwować nocleg w Home Spot?<span aria-hidden="true">+</span></summary><p>Przejdź na stronę Home Spot i wybierz rezerwację noclegu lub skontaktuj się z obsługą. Noclegi korzystają z osobnego systemu rezerwacji.</p></details></div></div></section>
 <section aria-labelledby="closing-title" class="editorial closing"><p class="eyebrow">10 / TERAZ TWOJA KOLEJ</p><h2 id="closing-title">Widzimy się<br/><em>nad wodą?</em></h2><p>Twoja kolejna przygoda może zacząć się właśnie tutaj. Sprawdź dostępne terminy lub napisz do nas — chętnie pomożemy Ci wybrać odpowiednią ofertę.</p><div class="closing-actions"><a aria-label="Sprawdź terminy" class="section-button bloom-button bloom-dark" href="https://app.longwaveboards.com/"><span aria-hidden="true" class="bloom-idle">Sprawdź terminy</span><span aria-hidden="true" class="bloom-active">Sprawdź terminy →</span></a><a aria-label="Napisz do nas" class="editorial-link bloom-button" href="mailto:info@longwaveboards.com"><span aria-hidden="true" class="bloom-idle">Napisz do nas</span><span aria-hidden="true" class="bloom-active">Napisz do nas →</span></a></div></section>
 <footer class="site-footer"><a aria-label="LONGWAVE — na początek" href="#"><img alt="LONGWAVE" height="78" loading="lazy" src="longwave-logo.png" width="145"/></a><nav aria-label="Linki w stopce"><a href="https://longwaveboards.com/regulamin-serwisu/">Regulamin</a><a href="https://longwaveboards.com/polityka-prywatnosci-2/">Polityka prywatności</a><a href="https://longwaveboards.com/kontakt/">Kontakt</a></nav><nav aria-label="Media społecznościowe"><a href="https://www.facebook.com/longwaveboards/">Facebook ↗</a><a href="https://www.instagram.com/longwave_boards/">Instagram ↗</a><a href="https://www.youtube.com/channel/UCnbOIan-xEh68Khj4U1g6Xw">YouTube ↗</a></nav><p>LONGWAVE · Więcej niż podróże.</p></footer>
-</main><script src="water-scene.min.js?v=performance-59" type="module"></script><script src="najblizsze-wyjazdy.js" type="module"></script></body></html>
+</main><script src="water-scene.min.js?v=performance-59" type="module"></script><script src="najblizsze-wyjazdy.js?v=drag-60" type="module"></script></body></html>

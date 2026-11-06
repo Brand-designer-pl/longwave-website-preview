@@ -37,9 +37,39 @@ for(const [button,dir] of [[prev,-1],[next,1]])button.onclick=()=>{
  track.scrollBy({left:dir*step,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
 };
 track.addEventListener('scroll',controls,{passive:true});new ResizeObserver(controls).observe(track);
+// Mouse dragging complements native touch scrolling and the arrow controls.
+let drag=null,suppressDragClick=false;
+track.addEventListener('pointerdown',e=>{
+ if(e.pointerType!=='mouse'||e.button!==0)return;
+ suppressDragClick=false;
+ drag={id:e.pointerId,x:e.clientX,left:track.scrollLeft,active:false};
+});
+window.addEventListener('pointermove',e=>{
+ if(!drag||e.pointerId!==drag.id)return;
+ const dx=e.clientX-drag.x;
+ if(!drag.active&&Math.abs(dx)<6)return;
+ if(!drag.active){drag.active=true;track.classList.add('is-dragging');track.setPointerCapture(e.pointerId);}
+ e.preventDefault();track.scrollLeft=drag.left-dx;
+},{passive:false});
+function finishDrag(e){
+ if(!drag||e.pointerId!==drag.id)return;
+ const active=drag.active,id=drag.id;drag=null;
+ suppressDragClick=active;
+ track.classList.remove('is-dragging');
+ if(track.hasPointerCapture(id))track.releasePointerCapture(id);
+ controls();
+ // The compatibility click follows pointerup in the same task.
+ setTimeout(()=>{suppressDragClick=false},0);
+}
+window.addEventListener('pointerup',finishDrag);
+window.addEventListener('pointercancel',finishDrag);
+track.addEventListener('lostpointercapture',finishDrag);
+track.addEventListener('dragstart',e=>e.preventDefault());
+track.addEventListener('click',e=>{if(suppressDragClick){e.preventDefault();e.stopImmediatePropagation();}},true);
+
 let pending=false,lastData='';
 async function refresh(){
- if(pending||document.hidden)return;
+ if(pending||document.hidden||drag)return;
  pending=true;
  try{
   const response=await fetch('./offers.json',{cache:'no-store'});
